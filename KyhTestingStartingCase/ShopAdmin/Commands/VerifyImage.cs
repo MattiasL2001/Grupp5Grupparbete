@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShopGeneral.Data;
 using System.Text;
 
@@ -15,13 +14,17 @@ namespace ShopAdmin.Commands
 
             foreach (var product in _context.Products)
             {
-                if (product.ImageUrl is null)
-                {
-                    listOfProductsWithoutImage.Add(product.Id.ToString());
-                }
+                if (product.ImageUrl is null) { listOfProductsWithoutImage.Add(product.Id.ToString()); }               
             }
 
-            File.WriteAllLines($"\\outfiles\\products\\missingimages-{GetDateToday()}.txt", listOfProductsWithoutImage);
+            WriteToFile(listOfProductsWithoutImage);
+        }
+
+        public void WriteToFile(List<string> listOfProductsWithoutImage)
+        {
+            var folderPath = "..\\outfiles\\products\\";
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+            File.WriteAllLines($"{folderPath}missingimages-{GetDateToday()}.txt", listOfProductsWithoutImage);
         }
 
         public string GetDateToday()
@@ -31,8 +34,7 @@ namespace ShopAdmin.Commands
             yyyyMMdd.Append(DateTime.Now.Month);
             yyyyMMdd.Append(DateTime.Now.Day);
             return yyyyMMdd.ToString();
-        }
-        
+        }       
 
     }
 }
