@@ -16,4 +16,10 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MvcSuperShop\MvcSuperShop.csproj" />
+    <ProjectReference Include="..\ShopAdmin\ShopAdmin.csproj" />
+    <ProjectReference Include="..\ShopGeneral\ShopGeneral.csproj" />
+  </ItemGroup>
+
 </Project>
