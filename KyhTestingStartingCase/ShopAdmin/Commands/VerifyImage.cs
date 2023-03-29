@@ -8,29 +8,21 @@ namespace ShopAdmin.Commands
     public class VerifyImage : ConsoleAppBase
     {
         private readonly ApplicationDbContext _context;
-        public VerifyImage(DbContextOptions<ApplicationDbContext> janne)
+        public VerifyImage(DbContextOptions<ApplicationDbContext> options)
         {
-            _context = new ApplicationDbContext(janne);
+            _context = new ApplicationDbContext(options);
+            List<string> listOfProductsWithoutImage = new List<string>();
 
             foreach (var product in _context.Products)
             {
                 if (product.ImageUrl is null)
                 {
-                    File.WriteAllText($"\\outfiles\\products\\missingimages-{GetDateToday()}.txt", product.Id.ToString());
+                    listOfProductsWithoutImage.Add(product.Id.ToString());
                 }
             }
-        }
 
-        //public void VerifyTheseImages(List<Product> productList)
-        //{
-        //    foreach (var product in productList)
-        //    {
-        //        if (product.ImageUrl is null)
-        //        {
-        //            File.WriteAllText($"\\outfiles\\products\\missingimages-{GetDateToday()}.txt", product.Id.ToString());
-        //        }
-        //    }
-        //}
+            File.WriteAllLines($"\\outfiles\\products\\missingimages-{GetDateToday()}.txt", listOfProductsWithoutImage);
+        }
 
         public string GetDateToday()
         {
