@@ -23,5 +23,20 @@ namespace ShopAdminTesting.Commands
 
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        public void When_no_image_exists_on_product_should_write_to_file()
+        {
+            List<string> productIdList = new List<string>();
+            productIdList.Add("12");
+                        
+            sut.WriteToFile(productIdList);
+
+            var folderPath = "..\\outfiles\\products\\";
+            
+            var result = File.ReadAllLines($"{folderPath}missingimages-{sut.GetDateToday()}.txt");
+
+            Assert.AreEqual("12", result[0]);
+        }
     }
 }

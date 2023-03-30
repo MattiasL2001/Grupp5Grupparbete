@@ -39,7 +39,7 @@ namespace ShopAdmin.Commands
             return true;
         }
 
-        private void WriteToFile(List<string> listOfProductsWithoutImage)
+        public void WriteToFile(List<string> listOfProductsWithoutImage)
         {
             var folderPath = "..\\outfiles\\products\\";
             if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
