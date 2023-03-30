@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using ShopGeneral.Data;
 using ShopGeneral.Services;
 using Microsoft.EntityFrameworkCore;
+using ShopAdmin;
+using System.Security.Cryptography.X509Certificates;
 
 var builder = ConsoleApp.CreateBuilder(args);
 builder.ConfigureServices((ctx, services) =>
@@ -17,7 +19,6 @@ builder.ConfigureServices((ctx, services) =>
     services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>();
-
 
     services.AddTransient<IAgreementService, AgreementService>();
     services.AddTransient<DataInitializer>();
@@ -39,6 +40,8 @@ using (var scope = app.Services.CreateScope())
 
 app.AddAllCommandType();
 app.Run();
+var instance = new PublishJSONPriceRunner();
+instance.Run();
 //generate prices to PriceRunner (JSON file)
 //verify all product images exists 
 //report categories without products
