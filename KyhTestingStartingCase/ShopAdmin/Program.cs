@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ShopGeneral.Data;
 using ShopGeneral.Services;
 using Microsoft.EntityFrameworkCore;
-// alehtaldth
+
 var builder = ConsoleApp.CreateBuilder(args);
 builder.ConfigureServices((ctx, services) =>
 {

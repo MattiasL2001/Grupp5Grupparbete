@@ -9,12 +9,16 @@ namespace ShopAdmin.Commands
         private readonly ApplicationDbContext _context;
         public VerifyImage(DbContextOptions<ApplicationDbContext> options)
         {
-            _context = new ApplicationDbContext(options);
+            _context = new ApplicationDbContext(options);            
+        }
+
+        public void VerifyImagesOfProducts()
+        {
             List<string> listOfProductsWithoutImage = new List<string>();
 
             foreach (var product in _context.Products)
             {
-                if (product.ImageUrl is null) { listOfProductsWithoutImage.Add(product.Id.ToString()); }               
+                if (product.ImageUrl is null) { listOfProductsWithoutImage.Add(product.Id.ToString()); }
             }
 
             WriteToFile(listOfProductsWithoutImage);
