@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopGeneral.Data;
 using System.Net;
-using System.Text;
 
 namespace ShopAdmin.Commands
 {
@@ -25,18 +24,26 @@ namespace ShopAdmin.Commands
             WriteToFile(listOfProductsWithoutImage);
         }
 
-        private bool DoesImageExist(string url)
+        public bool DoesImageExist(string url)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "HEAD";
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            try
+            {
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            if(response.StatusCode is HttpStatusCode.NotFound)
+                if (response.StatusCode is HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch
             {
                 return false;
             }
-            return true;
+            
         }
 
         public void WriteToFile(List<string> listOfProductsWithoutImage)

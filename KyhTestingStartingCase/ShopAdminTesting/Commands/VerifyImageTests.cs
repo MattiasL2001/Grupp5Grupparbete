@@ -38,5 +38,15 @@ namespace ShopAdminTesting.Commands
 
             Assert.AreEqual("12", result[0]);
         }
+
+        [TestMethod]
+        public void When_image_returns_404_should_return_false()
+        {
+            var fakeUrl = "http://example.com/invalid-image.jpg";
+
+            var result = sut.DoesImageExist(fakeUrl);
+
+            Assert.AreEqual(false, result);
+        }
     }
 }
