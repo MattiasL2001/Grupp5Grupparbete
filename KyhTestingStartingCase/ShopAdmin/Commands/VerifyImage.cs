@@ -46,13 +46,10 @@ namespace ShopAdmin.Commands
             File.WriteAllLines($"{folderPath}missingimages-{GetDateToday()}.txt", listOfProductsWithoutImage);
         }
 
-        private string GetDateToday()
+        public string GetDateToday()
         {
-            var yyyyMMdd = new StringBuilder();
-            yyyyMMdd.Append(DateTime.Now.Year);
-            yyyyMMdd.Append(DateTime.Now.Month);
-            yyyyMMdd.Append(DateTime.Now.Day);
-            return yyyyMMdd.ToString();
+            
+            return DateTime.Now.ToString("yyyyMMdd");
         }       
 
     }
