@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShopAdmin.Commands;
 using ShopGeneral.Data;
 
 namespace ShopAdminTesting
 {
     [TestClass]
-    public class VerifyCategoryTests
+    public class CategoryTests
     {
-        private readonly Verifycategory sut;
-        public VerifyCategoryTests()
+        private readonly ShopAdmin.Commands.Category sut;
+        public CategoryTests()
         {
-            sut = new Verifycategory(new DbContextOptions<ApplicationDbContext>());
+            sut = new ShopAdmin.Commands.Category(new DbContextOptions<ApplicationDbContext>());
         }
 
         [TestMethod]
@@ -37,10 +36,10 @@ namespace ShopAdminTesting
         [TestMethod]
         public void If_category_has_no_products_should_return_list_of_category_name()
         {
-            List<Category> listCategory = new List<Category>();
-            var category1 = new Category { Name = "cate1" };
+            List<ShopGeneral.Data.Category> listCategory = new List<ShopGeneral.Data.Category>();
+            var category1 = new ShopGeneral.Data.Category { Name = "cate1" };
             listCategory.Add(category1);
-            var category2 = new Category { Name = "cate2" };
+            var category2 = new ShopGeneral.Data.Category { Name = "cate2" };
             listCategory.Add(category2);
 
             List<Product> listProduct = new List<Product>();

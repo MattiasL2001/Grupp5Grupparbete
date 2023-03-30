@@ -3,20 +3,20 @@ using ShopGeneral.Data;
 
 namespace ShopAdmin.Commands
 {
-    public class Verifycategory : ConsoleAppBase
+    public class Category : ConsoleAppBase
     {
         private readonly ApplicationDbContext _context;
-        public Verifycategory(DbContextOptions<ApplicationDbContext> options)
+        public Category(DbContextOptions<ApplicationDbContext> options)
         {
             _context = new ApplicationDbContext(options);
         }
 
-        public void Verifycatagorieshasproducts()
+        public void Checkempty()
         {
             WriteToFile(ListCategoriesWithNoProductMatch(_context.Categories.ToList(), _context.Products.ToList()));
         }
 
-        public List<string> ListCategoriesWithNoProductMatch(List<Category> categoryList, List<Product> products)
+        public List<string> ListCategoriesWithNoProductMatch(List<ShopGeneral.Data.Category> categoryList, List<Product> products)
         {
             List<string> listOfCategoriesWithNoProducts = new List<string>();
             foreach (var category in categoryList)
