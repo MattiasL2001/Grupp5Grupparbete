@@ -15,6 +15,7 @@ namespace ShopAdmin.Commands
         {
             WriteToFile(ListCategoriesWithNoProductMatch(_context.Categories.ToList(), _context.Products.ToList()));
         }
+
         public List<string> ListCategoriesWithNoProductMatch(List<Category> categoryList, List<Product> products)
         {
             List<string> listOfCategoriesWithNoProducts = new List<string>();
@@ -27,6 +28,7 @@ namespace ShopAdmin.Commands
 
             return listOfCategoriesWithNoProducts;
         }
+
         public void WriteToFile(List<string> listOfCategoriesWithNoProducts)
         {
             var folderPath = "..\\outfiles\\category\\";

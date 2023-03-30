@@ -38,13 +38,13 @@ namespace ShopAdminTesting
         public void If_category_has_no_products_should_return_list_of_category_name()
         {
             List<Category> listCategory = new List<Category>();
-            var cate1 = new Category { Name = "cate1" };
-            listCategory.Add(cate1);
-            var cate2 = new Category { Name = "cate2" };
-            listCategory.Add(cate2);
+            var category1 = new Category { Name = "cate1" };
+            listCategory.Add(category1);
+            var category2 = new Category { Name = "cate2" };
+            listCategory.Add(category2);
 
             List<Product> listProduct = new List<Product>();
-            var prod1 = new Product { Name = "1", Category = cate2};
+            var prod1 = new Product { Name = "1", Category = category2};
             listProduct.Add(prod1);
 
             var resultList = sut.ListCategoriesWithNoProductMatch(listCategory, listProduct);
