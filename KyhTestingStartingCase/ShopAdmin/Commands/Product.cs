@@ -4,15 +4,15 @@ using System.Net;
 
 namespace ShopAdmin.Commands
 {
-    public class Verifyimage : ConsoleAppBase
+    public class Product : ConsoleAppBase
     {
         private readonly ApplicationDbContext _context;
-        public Verifyimage(DbContextOptions<ApplicationDbContext> options)
+        public Product(DbContextOptions<ApplicationDbContext> options)
         {
             _context = new ApplicationDbContext(options);            
         }
 
-        public void Verifyimagesofproducts()
+        public void Verifyimage()
         {
             List<string> listOfProductsWithoutImage = new List<string>();
 

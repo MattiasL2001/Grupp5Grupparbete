@@ -1,17 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShopAdmin.Commands;
 using ShopGeneral.Data;
 
 
 namespace ShopAdminTesting.Commands
 {
     [TestClass]
-    public class VerifyImageTests
+    public class ProductTests
     {
-        private readonly Verifyimage sut;
-        public VerifyImageTests()
-        {            
-            sut = new Verifyimage(new DbContextOptions<ApplicationDbContext>());
+        private readonly ShopAdmin.Commands.Product sut;
+        public ProductTests()
+        {
+            sut = new ShopAdmin.Commands.Product(new DbContextOptions<ApplicationDbContext>());
         }
 
         [TestMethod]
