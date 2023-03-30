@@ -32,11 +32,7 @@ namespace ShopAdmin.Commands
             try
             {
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                if (response.StatusCode is HttpStatusCode.NotFound)
-                {
-                    return false;
-                }
+                if (response.StatusCode is HttpStatusCode.NotFound) { return false; }
                 return true;
             }
             catch
@@ -54,8 +50,7 @@ namespace ShopAdmin.Commands
         }
 
         public string GetDateToday()
-        {
-            
+        {            
             return DateTime.Now.ToString("yyyyMMdd");
         }       
 
