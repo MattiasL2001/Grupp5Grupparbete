@@ -24,7 +24,7 @@ public class DataInitializer
         SeedRoles();
         SeedUsers();
         SeedProducts();
-        SeedAgreements();
+        SeedAgreements();   
         SeedUserAgreements();
     }
 
