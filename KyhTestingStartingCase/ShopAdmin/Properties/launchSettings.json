@@ -2,7 +2,7 @@
   "profiles": {
     "ShopAdmin": {
       "commandName": "Project",
-      "commandLineArgs": "verifycategory verifycatagorieshasproducts"
+      "commandLineArgs": "verifyimage verifyimagesofproducts"
     }
   }
 }
