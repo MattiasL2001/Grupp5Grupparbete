@@ -15,7 +15,7 @@ namespace ShopAdmin.Commands
         {
             WriteToFile(ListCategoriesWithNoProductMatch(_context.Categories.ToList(), _context.Products.ToList()));
         }
-        // hello
+        
         public List<string> ListCategoriesWithNoProductMatch(List<ShopGeneral.Data.Category> categoryList, List<ShopGeneral.Data.Product> products)
         {
             List<string> listOfCategoriesWithNoProducts = new List<string>();
