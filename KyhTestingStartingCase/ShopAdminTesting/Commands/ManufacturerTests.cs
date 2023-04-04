@@ -45,11 +45,23 @@ namespace ShopAdminTesting.Commands
 
             Assert.AreEqual(testEmail1, resultManufacturer1EmailAdress);
         }
-        //[TestMethod]
-        //public void Verify_When_Sending_Emails_That_Its_Received()
-        //{
+        [TestMethod]
+        public void Verify_When_Sending_Emails_That_Its_Received()
+        {
+            //Arrage
+            List<string> emailAdresses = new List<string>();
+            string testEmail1 = "Hej123@fake.se";
+            string testEmail2 = "hej534@fake.se";
+            emailAdresses.Add(testEmail1);
+            emailAdresses.Add(testEmail2);
+            var manufacturerList = new List<string>() { "rolls royce", "volvo" };
 
-        //}
+            var listOfEmails = sut.CreatingEmails(emailAdresses, manufacturerList);
+            //Act
+            sut.SendingEmails(listOfEmails);
+            //Assert
+
+        }
 
     }
 }
