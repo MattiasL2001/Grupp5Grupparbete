@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopGeneral.Data;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
 
 namespace ShopAdmin.Commands
@@ -15,16 +14,22 @@ namespace ShopAdmin.Commands
         }
 
         public void Sendreport()
-        {
-            var listOfEmails = CreatingEmails();
-            SendingEmails(listOfEmails);
-        }
-        public List<MimeMessage> CreatingEmails()
-        {
-            var listOfEmails = _context.Manufacturers.Select(manu => manu.EmailReport.Replace(" ","_")).ToList();
-            var listOfManufacturerNames = _context.Manufacturers.Select(manu => manu.Name).ToList();
+        {            
+            var sendTheReport = CheckIfThirdOfTheMonth(DateTime.Now);
+            if (sendTheReport is true)
+            {
+                var listOfEmailAdresses = _context.Manufacturers.Select(manu => manu.EmailReport.Replace(" ", "_")).ToList();
+                var listOfManufacturerNames = _context.Manufacturers.Select(manu => manu.Name).ToList();
+
+                var listOfEmails = CreatingEmails(listOfEmailAdresses, listOfManufacturerNames);
+                SendingEmails(listOfEmails);
+            }
             
+        }
+        public List<MimeMessage> CreatingEmails(List<string> listOfEmails, List<string> listOfManufacturerNames)
+        {                        
             var listOfMessage = new List<MimeMessage>();
+
             var i = 0;
             var correctMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
 
@@ -35,11 +40,12 @@ namespace ShopAdmin.Commands
                 message.To.Add(new MailboxAddress(listOfManufacturerNames[i], email));
                 i++;
 
-                message.Subject = $"Försäljningsrapport {correctMonth}";
-                message.Body = new TextPart("plain")
-                {
-                    Text = @"Test"
-                };
+                message.Subject = $"Sales Report {correctMonth}";
+                // Leaving this commented, so you can later add sales data to each email
+                //message.Body = new TextPart("plain")
+                //{
+                //    Text = @"Här skriver du innehållet i emailet"
+                //};
                 listOfMessage.Add(message);
             }
 
@@ -50,17 +56,18 @@ namespace ShopAdmin.Commands
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.ethereal.email", 587, false);
-
-                // Note: only needed if the SMTP server requires authentication
+                
                 client.Authenticate("antonetta.emard22@ethereal.email", "rFzkgaH8sbGYfdM4DK");
 
-                foreach (var email in listOfEmails)
-                {
-                    client.Send(email);
-                } 
-                
+                listOfEmails.ForEach(email => { client.Send(email); });                
+
                 client.Disconnect(true);
             }
+        }
+        public bool CheckIfThirdOfTheMonth(DateTime dtNow)        
+        {            
+            if (dtNow.Day is not 3) { return false; }
+            return true;
         }
     }
 }
