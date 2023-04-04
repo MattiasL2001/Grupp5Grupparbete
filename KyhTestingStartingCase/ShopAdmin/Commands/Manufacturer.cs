@@ -6,7 +6,7 @@ using MimeKit;
 
 namespace ShopAdmin.Commands
 {
-    public class Manufacturer
+    public class Manufacturer : ConsoleAppBase
     {
         private readonly ApplicationDbContext _context;
         public Manufacturer(DbContextOptions<ApplicationDbContext> options)
@@ -21,7 +21,7 @@ namespace ShopAdmin.Commands
         }
         public List<MimeMessage> CreatingEmails()
         {
-            var listOfEmails = _context.Manufacturers.Select(manu => manu.EmailReport).ToList();
+            var listOfEmails = _context.Manufacturers.Select(manu => manu.EmailReport.Replace(" ","_")).ToList();
             var listOfManufacturerNames = _context.Manufacturers.Select(manu => manu.Name).ToList();
             
             var listOfMessage = new List<MimeMessage>();
