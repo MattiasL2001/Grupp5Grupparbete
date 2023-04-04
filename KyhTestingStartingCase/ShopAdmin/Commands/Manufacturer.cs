@@ -16,24 +16,51 @@ namespace ShopAdmin.Commands
 
         public void Sendreport()
         {
+            var listOfEmails = CreatingEmails();
+            SendingEmails(listOfEmails);
+        }
+        public List<MimeMessage> CreatingEmails()
+        {
             var listOfEmails = _context.Manufacturers.Select(manu => manu.EmailReport).ToList();
             var listOfManufacturerNames = _context.Manufacturers.Select(manu => manu.Name).ToList();
-            var message = new MimeMessage();
+            
+            var listOfMessage = new List<MimeMessage>();
             var i = 0;
-            var correctMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");           
+            var correctMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
 
-
-            foreach(var email in listOfEmails)
+            foreach (var email in listOfEmails)
             {
-                message.From.Add(new MailboxAddress("Stefan SuperShop", "larissa.steuber@ethereal.email"));
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Stefan SuperShop", "antonetta.emard22@ethereal.email"));
                 message.To.Add(new MailboxAddress(listOfManufacturerNames[i], email));
                 i++;
 
                 message.Subject = $"Försäljningsrapport {correctMonth}";
+                message.Body = new TextPart("plain")
+                {
+                    Text = @"Test"
+                };
+                listOfMessage.Add(message);
             }
-            
 
+            return listOfMessage;
+        }
+        public void SendingEmails(List<MimeMessage> listOfEmails)
+        {
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.ethereal.email", 587, false);
 
+                // Note: only needed if the SMTP server requires authentication
+                client.Authenticate("antonetta.emard22@ethereal.email", "rFzkgaH8sbGYfdM4DK");
+
+                foreach (var email in listOfEmails)
+                {
+                    client.Send(email);
+                } 
+                
+                client.Disconnect(true);
+            }
         }
     }
 }
