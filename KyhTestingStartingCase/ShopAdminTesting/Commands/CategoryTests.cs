@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopGeneral.Data;
 
-namespace ShopAdminTesting
+namespace ShopAdminTesting.Commands
 {
     [TestClass]
     public class CategoryTests
@@ -36,14 +36,14 @@ namespace ShopAdminTesting
         [TestMethod]
         public void If_category_has_no_products_should_return_list_of_category_name()
         {
-            List<ShopGeneral.Data.Category> listCategory = new List<ShopGeneral.Data.Category>();
-            var category1 = new ShopGeneral.Data.Category { Name = "cate1" };
+            List<Category> listCategory = new List<Category>();
+            var category1 = new Category { Name = "cate1" };
             listCategory.Add(category1);
-            var category2 = new ShopGeneral.Data.Category { Name = "cate2" };
+            var category2 = new Category { Name = "cate2" };
             listCategory.Add(category2);
 
             List<Product> listProduct = new List<Product>();
-            var prod1 = new Product { Name = "1", Category = category2};
+            var prod1 = new Product { Name = "1", Category = category2 };
             listProduct.Add(prod1);
 
             var resultList = sut.ListCategoriesWithNoProductMatch(listCategory, listProduct);
