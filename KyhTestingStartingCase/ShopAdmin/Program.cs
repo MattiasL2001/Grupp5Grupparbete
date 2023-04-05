@@ -40,7 +40,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.AddAllCommandType();
-//app.AddSubCommand("product", "verifyimage", () => Console.WriteLine("!!"));
 app.Run();
 //generate prices to PriceRunner (JSON file)
 //verify all product images exists 

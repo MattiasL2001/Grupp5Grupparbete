@@ -14,6 +14,17 @@ namespace ShopAdminTesting.Commands
         }
 
         [TestMethod]
+        public void Check_if_products_file_exist()
+        {
+            string path = Path.GetFullPath(".\\../../../../ShopAdmin\\bin\\Debug\\net6.0\\/outfiles\\pricerunner");
+            string today = DateTime.Today.ToString("yyyyMMdd");
+            string filePath = $"{path}\\{today}.txt";
+
+            Console.WriteLine(path);
+            Assert.IsTrue(Directory.Exists(path));
+        }
+
+        [TestMethod]
         public void Check_date_of_today_is_in_correct_format()
         {
             var result = sut.GetDateToday();

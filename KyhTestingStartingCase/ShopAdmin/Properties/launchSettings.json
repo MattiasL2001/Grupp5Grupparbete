@@ -2,7 +2,7 @@
   "profiles": {
     "ShopAdmin": {
       "commandName": "Project",
-      "commandLineArgs": "product verifyimage"
+      "commandLineArgs": "[product export --to=pricerunner\r\n, product verifyimage, category checkempty]"
     }
   }
 }
