@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using ShopGeneral.Data;
 using ShopGeneral.Services;
 using Microsoft.EntityFrameworkCore;
+using Humanizer;
+using ShopAdmin.Commands;
+using System.Threading.Channels;
 
 var builder = ConsoleApp.CreateBuilder(args);
 builder.ConfigureServices((ctx, services) =>
@@ -38,6 +41,7 @@ using (var scope = app.Services.CreateScope())
 
 
 app.AddAllCommandType();
+app.AddSubCommand("product", "verifyimage", () => Console.WriteLine("!!"));
 app.Run();
 //generate prices to PriceRunner (JSON file)
 //verify all product images exists 

@@ -7,7 +7,7 @@ namespace ShopAdminTesting
     [TestClass]
     public class PublishJSONPriceRunnerTests
     {
-        private readonly PublishJSONPriceRunner sut;
+        private readonly ShopAdmin.Commands.Product sut;
         public PublishJSONPriceRunnerTests() { sut = new PublishJSONPriceRunner(); }
 
         [TestMethod]
