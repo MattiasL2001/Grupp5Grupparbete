@@ -46,4 +46,3 @@ instance.Run();
 //verify all product images exists 
 //report categories without products
 //report  
-

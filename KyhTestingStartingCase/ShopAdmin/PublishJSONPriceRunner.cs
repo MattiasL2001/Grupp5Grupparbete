@@ -28,11 +28,17 @@ namespace ShopAdmin
             options.WriteIndented = true;
             products.Add(p1);
             products.Add(p2);
+            string[] result = { };
+
+            foreach (Product product in products)
+            {
+                result = ProductToPriceRunner(product);
+            }
+
             var JSONString = JsonSerializer.Serialize<List<Product>>(products, options);
+
             CreateFile(JSONString);
         }
-
-        void 
 
         void CreateFile(string result)
         {
@@ -43,6 +49,37 @@ namespace ShopAdmin
             if (!Directory.Exists(path)) { Directory.CreateDirectory(path); }
 
             File.WriteAllText(filePath, result);
+        }
+
+        string[] ProductToPriceRunner(Product p)
+        {
+            var id = Convert.ToString(p.Id);
+            var title = p.Name;
+            var description = "";
+            var price = Convert.ToString(p.BasePrice);
+            var discountPercentage = Convert.ToString(0);
+            var rating = Convert.ToString(0);
+            var stock = Convert.ToString(0);
+            var brand = Convert.ToString(p.Manufacturer);
+            var category = Convert.ToString(p.Category);
+            string[] images = {};
+            images.Append(p.ImageUrl);
+
+            string[] stringResult =
+            {
+                "id: " + id,
+                "title: " + title,
+                "description: " + description,
+                "price: " + price,
+                "discountPercentage: " + discountPercentage,
+                "rating: " + rating,
+                "stock: " + stock,
+                "brand: " + brand,
+                "category: " + category,
+                "images: " + images.ToString()
+            };
+
+            return stringResult;
         }
 
         string ReturnJSON(Product p)
