@@ -39,9 +39,8 @@ using (var scope = app.Services.CreateScope())
     dataInitializer.SeedData();
 }
 
-
 app.AddAllCommandType();
-app.AddSubCommand("product", "verifyimage", () => Console.WriteLine("!!"));
+//app.AddSubCommand("product", "verifyimage", () => Console.WriteLine("!!"));
 app.Run();
 //generate prices to PriceRunner (JSON file)
 //verify all product images exists 
