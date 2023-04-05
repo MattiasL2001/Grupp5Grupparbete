@@ -28,14 +28,14 @@ namespace ShopAdmin
             options.WriteIndented = true;
             products.Add(p1);
             products.Add(p2);
-            string[] result = { };
+            List<string[]> result = new List<string[]>();
 
             foreach (Product product in products)
             {
-                result = ProductToPriceRunner(product);
+                result.Add(ProductToPriceRunner(product));
             }
 
-            var JSONString = JsonSerializer.Serialize<List<Product>>(products, options);
+            var JSONString = JsonSerializer.Serialize<List<string[]>>(result, options);
 
             CreateFile(JSONString);
         }
