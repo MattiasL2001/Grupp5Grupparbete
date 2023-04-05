@@ -1,15 +1,32 @@
-﻿using ShopAdmin.Services;
+﻿using MimeKit;
+using ShopAdmin.Services;
 
 namespace ShopAdminTesting.Services
 {
+    public class FakeEmailService : IEmailService
+    {
+        public bool IsThisMethodCalled = false;
+        public List<MimeMessage> CreatingEmails(List<string> listOfEmailsAdresses, List<string> listOfNames)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendingEmails(List<MimeMessage> listOfEmails)
+        {
+            IsThisMethodCalled = true;
+        }
+    }
+
     [TestClass]
     public class EmailServiceManufacturerTests
     {
-        private readonly EmailServiceManufacturer sut;        
+        private readonly EmailServiceManufacturer sut;
+        private readonly FakeEmailService fakeEmailService;
 
         public EmailServiceManufacturerTests()
         {
-            sut = new EmailServiceManufacturer();            
+            sut = new EmailServiceManufacturer();
+            fakeEmailService = new FakeEmailService();
         }
 
         [TestMethod]        
@@ -38,17 +55,18 @@ namespace ShopAdminTesting.Services
 
             Assert.AreEqual(testEmail1, resultManufacturer1EmailAdress);
         }
-        //[TestMethod]
-        //public void When_Email_Sent_Verify_That_Its_Received()
-        //{            
-        //    List<string> emailAdresses = new List<string>();
-        //    string testEmail1 = "Hej123@fake.se";
-        //    string testEmail2 = "hej534@fake.se";
-        //    emailAdresses.Add(testEmail1);
-        //    emailAdresses.Add(testEmail2);
-        //    var manufacturerList = new List<string>() { "rolls royce", "volvo" };
+        [TestMethod]
+        public void When_Email_Sent_Verify_That_The_Method_Is_Called()
+        {
+            List<string> emailAdresses = new List<string>();
+            var manufacturerList = new List<string>();
 
-        //    var listOfEmails = sut.CreatingEmails(emailAdresses, manufacturerList);            
-        //}
+            var listOfEmails = sut.CreatingEmails(emailAdresses, manufacturerList);
+
+            fakeEmailService.IsThisMethodCalled = false;
+            fakeEmailService.SendingEmails(listOfEmails);
+
+            Assert.IsTrue(fakeEmailService.IsThisMethodCalled);
+        }
     }
 }

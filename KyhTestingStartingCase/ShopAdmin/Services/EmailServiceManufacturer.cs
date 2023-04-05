@@ -39,7 +39,7 @@ namespace ShopAdmin.Services
                 client.Authenticate("antonetta.emard22@ethereal.email", "rFzkgaH8sbGYfdM4DK");
 
                 listOfEmails.ForEach(email => { client.Send(email); });
-
+                
                 client.Disconnect(true);
             }
         }
