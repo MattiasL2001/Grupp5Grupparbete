@@ -32,9 +32,9 @@ namespace ShopAdminTesting.Commands
             testProducts.Add(testProduct);
             
             var result = sut.CreateJsonString(testProducts, testManufacturers, testCategories);            
-            var resultBool = result.Contains("manufacturerName");
+            var isNameFound = result.Contains("manufacturerName");
             
-            Assert.IsTrue(resultBool);
+            Assert.IsTrue(isNameFound);
         }
 
         [TestMethod]
