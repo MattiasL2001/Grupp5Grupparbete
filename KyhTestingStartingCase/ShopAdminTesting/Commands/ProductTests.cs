@@ -15,8 +15,7 @@ namespace ShopAdminTesting.Commands
 
         [TestMethod]
         public void Check_That_CreateJsonString_Creates_Correct_String()
-        {
-            // ARRANGE
+        {            
             var testCategories = new List<Category>();
             var testCategory = new Category();
             testCategory.Name = "categoryName";
@@ -31,13 +30,10 @@ namespace ShopAdminTesting.Commands
             var testProduct = new Product() { Id = 99, Name = "TestProdukt99", BasePrice = 88
             , Category = testCategory, ImageUrl = "test.test.test", Manufacturer = testManufacturer };
             testProducts.Add(testProduct);
-
-            //ACT
-            var result = sut.CreateJsonString(testProducts, testManufacturers, testCategories);
             
+            var result = sut.CreateJsonString(testProducts, testManufacturers, testCategories);            
             var resultBool = result.Contains("manufacturerName");
-
-            //ASSERT
+            
             Assert.IsTrue(resultBool);
         }
 
