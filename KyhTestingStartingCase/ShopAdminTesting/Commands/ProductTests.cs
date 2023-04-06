@@ -14,6 +14,34 @@ namespace ShopAdminTesting.Commands
         }
 
         [TestMethod]
+        public void Check_That_CreateJsonString_Creates_Correct_String()
+        {
+            // ARRANGE
+            var testCategories = new List<Category>();
+            var testCategory = new Category();
+            testCategory.Name = "categoryName";
+            testCategories.Add(testCategory);
+
+            var testManufacturers = new List<Manufacturer>();
+            var testManufacturer = new Manufacturer();
+            testManufacturer.Name = "manufacturerName";
+            testManufacturers.Add(testManufacturer);
+
+            var testProducts = new List<Product>();
+            var testProduct = new Product() { Id = 99, Name = "TestProdukt99", BasePrice = 88
+            , Category = testCategory, ImageUrl = "test.test.test", Manufacturer = testManufacturer };
+            testProducts.Add(testProduct);
+
+            //ACT
+            var result = sut.CreateJsonString(testProducts, testManufacturers, testCategories);
+            
+            var resultBool = result.Contains("manufacturerName");
+
+            //ASSERT
+            Assert.IsTrue(resultBool);
+        }
+
+        [TestMethod]
         public void Check_if_products_file_exist()
         {
             sut.WriteToFilePricerunner("testing testing");

@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShopGeneral.Data;
 using System.Net;
 using System.Text;
