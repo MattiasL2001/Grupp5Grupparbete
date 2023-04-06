@@ -16,11 +16,12 @@ namespace ShopAdminTesting.Commands
         [TestMethod]
         public void Check_if_products_file_exist()
         {
-            string path = Path.GetFullPath(".\\../../../../ShopAdmin\\bin\\Debug\\net6.0\\/outfiles\\pricerunner");
+            sut.WriteToFilePricerunner("testing testing");
+            string path = Path.GetFullPath("..\\outfiles\\pricerunner\\");
             string today = DateTime.Today.ToString("yyyyMMdd");
             string filePath = $"{path}\\{today}.txt";
 
-            Console.WriteLine(path);
+            Console.WriteLine(Path.GetFullPath(Directory.GetCurrentDirectory()));
             Assert.IsTrue(Directory.Exists(path));
         }
 

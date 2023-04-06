@@ -29,24 +29,13 @@ namespace ShopAdmin.Commands
 
         public void Export()
         {
-            var products = new List<ShopGeneral.Data.Product>();
-            var p1 = new ShopGeneral.Data.Product();
-            p1.Manufacturer = new Manufacturer();
-            var p2 = new ShopGeneral.Data.Product();
-            p2.Manufacturer = new Manufacturer();
-            p1.Name = "p1";
-            p1.BasePrice = 100;
-            p1.Manufacturer.Name = "Apple";
-            p2.Name = "p2";
-            p2.BasePrice = 50;
-            p1.Manufacturer.Name = "Samsung";
+            var products = _context.Products.ToList();
+            var manufacturers = _context.Manufacturers.ToList();
+            var categories = _context.Categories.ToList();
             JsonSerializerOptions options = new JsonSerializerOptions();
             options.WriteIndented = true;
-            products.Add(p1);
-            products.Add(p2);
-            var result = new List<string[]>();
             var JSONString = "";
-            JSONString = CreateJsonString(products);
+            JSONString = CreateJsonString(products, manufacturers, categories);
             WriteToFilePricerunner(JSONString);
         }
 
@@ -67,18 +56,17 @@ namespace ShopAdmin.Commands
             }
             
         }
-        public string CreateJsonString(List<ShopGeneral.Data.Product> products)
+        public string CreateJsonString(List<ShopGeneral.Data.Product> products, 
+                                        List<ShopGeneral.Data.Manufacturer> manufacturers, 
+                                        List<ShopGeneral.Data.Category>categories)
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append("{\n\"products\":[");
 
             foreach (var product in products)
             {
-                product.Manufacturer = new Manufacturer();
-                product.Manufacturer.Name = "sdgdfhdgfg";
-                product.Category = new ShopGeneral.Data.Category();
-                product.Category.Name = "vcxbcvbcv";
-                product.ImageUrl = "www.google.se";
+                var man = manufacturers.FirstOrDefault(x => x.Name == product.Manufacturer.Name).Name;
+                var cat = categories.FirstOrDefault(x => x.Name == product.Category.Name).Name;
 
                 stringBuilder.Append("\n{");
                 stringBuilder.Append($"\n\"id\":{product.Id},\n");
@@ -88,8 +76,8 @@ namespace ShopAdmin.Commands
                 stringBuilder.Append($"\"discountPercentage\":0,\n");
                 stringBuilder.Append($"\"rating\":0,\n");
                 stringBuilder.Append($"\"stock\":0,\n");
-                stringBuilder.Append($"\"brand\":\"{product.Manufacturer.Name}\",\n");
-                stringBuilder.Append($"\"category\":\"{product.Category.Name}\",\n");
+                stringBuilder.Append($"\"brand\":\"{man}\",\n");
+                stringBuilder.Append($"\"category\":\"{cat}\",\n");
                 stringBuilder.Append($"\"images\":[{product.ImageUrl}]\n");
                 stringBuilder.Append("},");
             }
@@ -100,7 +88,7 @@ namespace ShopAdmin.Commands
 
         public void WriteToFilePricerunner(string result)
         {
-            string path = ".\\outfiles\\pricerunner";
+            string path = "..\\outfiles\\pricerunner";
             string today = DateTime.Today.ToString("yyyyMMdd");
             string filePath = $"{path}\\{today}.txt";
 
