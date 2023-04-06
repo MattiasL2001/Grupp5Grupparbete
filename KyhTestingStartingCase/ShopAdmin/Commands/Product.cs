@@ -64,8 +64,8 @@ namespace ShopAdmin.Commands
 
             foreach (var product in products)
             {
-                var man = manufacturers.FirstOrDefault(x => x.Name == product.Manufacturer.Name).Name;
-                var cat = categories.FirstOrDefault(x => x.Name == product.Category.Name).Name;
+                var manufacturerName = manufacturers.FirstOrDefault(x => x.Name == product.Manufacturer.Name).Name;
+                var categoryName = categories.FirstOrDefault(x => x.Name == product.Category.Name).Name;
 
                 stringBuilder.Append("\n{");
                 stringBuilder.Append($"\n\"id\":{product.Id},\n");
@@ -75,8 +75,8 @@ namespace ShopAdmin.Commands
                 stringBuilder.Append($"\"discountPercentage\":0,\n");
                 stringBuilder.Append($"\"rating\":0,\n");
                 stringBuilder.Append($"\"stock\":0,\n");
-                stringBuilder.Append($"\"brand\":\"{man}\",\n");
-                stringBuilder.Append($"\"category\":\"{cat}\",\n");
+                stringBuilder.Append($"\"brand\":\"{manufacturerName}\",\n");
+                stringBuilder.Append($"\"category\":\"{categoryName}\",\n");
                 stringBuilder.Append($"\"images\":[{product.ImageUrl}]\n");
                 stringBuilder.Append("},");
             }
