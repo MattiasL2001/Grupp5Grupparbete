@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using ShopGeneral.Data;
 using ShopGeneral.Services;
 using Microsoft.EntityFrameworkCore;
+using Humanizer;
+using ShopAdmin.Commands;
+using System.Threading.Channels;
 
 var builder = ConsoleApp.CreateBuilder(args);
 builder.ConfigureServices((ctx, services) =>
@@ -35,7 +38,6 @@ using (var scope = app.Services.CreateScope())
     var dataInitializer = scope.ServiceProvider.GetService<DataInitializer>();
     dataInitializer.SeedData();
 }
-
 
 app.AddAllCommandType();
 app.Run();
